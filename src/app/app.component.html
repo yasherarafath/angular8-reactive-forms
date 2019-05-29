@@ -1,20 +1,79 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!-- Toolbar -->
+<mat-toolbar color="warn" class="header">
+  <span class="title-center mat-h1">Angular 8 Reactive Forms</span>
+</mat-toolbar>
 
+<!-- wrapper -->
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <form [formGroup]="myForm" (ngSubmit)="submitForm()" novalidate>
+      <!-- Name -->
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Name" formControlName="name">
+        <!-- error -->
+        <mat-error *ngIf="errorHandling('name', 'required')">
+          You must provide a<strong>student name</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" formControlName="email">
+        <!-- error -->
+        <mat-error *ngIf="errorHandling('email', 'required')">
+          You must provide a<strong>email</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Gender -->
+      <div class="misc-bottom-padding">
+        <mat-label>Gender:</mat-label>
+        <mat-radio-group aria-label="Select an option" formControlName="gender">
+          <mat-radio-button value="Male">Male</mat-radio-button>
+          <mat-radio-button value="Female">Female</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- Date picker -->
+      <mat-form-field>
+        <input matInput readonly [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob"
+          (dateChange)="date($event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <!-- error -->
+        <mat-error *ngIf="errorHandling('dob', 'required')">
+          Please enter <strong>date of birth</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Class -->
+      <mat-form-field>
+        <mat-label>Grade</mat-label>
+        <mat-select [(value)]="selected" formControlName="grade">
+          <mat-option [value]="gradeArray" *ngFor="let gradeArray of GradeArray">{{gradeArray}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Add Subjects -->
+      <mat-form-field class="multiple-items">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let subjectsArray of SubjectsArray" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(subjectsArray)">
+            {{subjectsArray.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Add subjects" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+
+      <!-- Submit -->
+      <div class="button-wrapper">
+        <button mat-flat-button color="primary">Submit</button>
+      </div>
+
+    </form>
+  </mat-sidenav-content>
+</mat-sidenav-container>
