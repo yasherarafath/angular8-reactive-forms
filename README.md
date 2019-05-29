@@ -21,6 +21,7 @@ Create an Angular 8 Reactive form with Angular Material forms - We'll be using A
 * Node v10.15.3
 * AngularCLI v8.0.0
 * Angular v8.0.0
+* Angular Material 8
 
 ##Installation Process
 Run `npm install` to install all the required dependencies
