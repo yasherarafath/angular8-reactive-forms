@@ -18,9 +18,9 @@ Create an Angular 8 Reactive form with Angular Material forms - We'll be using A
 ](https://www.positronx.io/angular-8-reactive-forms-validation-with-angular-material-8/)
 
 ## Technologies used
-Node v10.15.3
-AngularCLI v8.0.0
-Angular v8.0.0
+* Node v10.15.3
+* AngularCLI v8.0.0
+* Angular v8.0.0
 
 ##Installation Process
 Run `npm install` to install all the required dependencies
